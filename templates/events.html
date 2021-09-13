@@ -1,0 +1,61 @@
+{% extends 'home.html' %}
+
+{% block title %} Home {% endblock title %}
+
+<script>
+{% block jquery %}
+function updateText(btn, verb){
+    btn.Text(verb)
+}
+$("#like-btn").click(function(e){
+e.preventdefault()
+var this_ = $(this)
+var status = this_.attr("data-status")
+var likeurl = this_.attr("href")
+$.ajax({
+    url: likeurl,
+    method: "GET",
+    data: {status : status},
+    success: function(data){
+        console.log(data)
+        if (data.status == True){
+            updateText(this_, "Unlike")              
+        } else{
+            updateText(this_, "Like")
+        }
+    }, error: function(error){
+        console.log(error)
+        console.log("error")
+    }
+})
+
+})
+{% endblock jquery %}
+</script>
+
+{% block body %}
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-sm-2  ">
+        {% for item in items %}
+        <div class="col my-3">
+            <div class="card">
+                <img src="{{item.img.url}}" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <p class="card-text">{{item.desc}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Time: {{item.time}}</li>
+                            <li class="list-group-item">Location: {{item.location}}</li>
+                        </ul>
+
+                        <a href="likedevents/{{item.pk}}" class="btn btn-outline-danger btn-small" id="like-btn" data-status="{{item.liked}}">Like</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,34 @@
+{% extends 'home.html' %}
+
+{% block title %} Add Events {% endblock title %}
+
+{% block body %}
+</br>
+<form class="form-floating" method="POST" action="addevent" enctype='multipart/form-data'>
+{% csrf_token %}
+<div class="container mb-3 my-5">
+  <div class="mb-3">
+    <label for="Name" class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" id="Name">
+  </div>
+  <div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+  <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+  <div class="mb-3">
+    <label for="Time" class="form-label">Time</label>
+    <input type="time" class="form-control" name="time" id="Time">
+  </div>
+  <div class="mb-3">
+    <label for="Location" class="form-label">Location</label>
+    <input type="text" class="form-control" name="location" id="location">
+  </div>
+  <div class="mb-3">
+  <label for="formFile" class="form-label">Image</label>
+  <input class="form-control" type="file" accept="media/*" name="img" id="formFile">
+</div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+{% endblock body %}
